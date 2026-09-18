@@ -1111,3 +1111,80 @@ p { line-height: 1.65; }
 @media (max-width: 860px) {
   .business-hero-picture img { object-position: 72% center !important; }
 }
+
+/* Definitive viewport and media pass. Avoid 100vw because it includes the
+   scrollbar on desktop and creates the white gutter reported at the right. */
+html,
+body,
+#root,
+.site-shell,
+main {
+  width: 100%;
+  max-width: 100%;
+}
+
+html,
+body,
+.site-shell {
+  overflow-x: clip;
+}
+
+.page-hero-account,
+.page-hero-account .page-hero-image,
+.page-hero-account .page-hero-image img {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-inline: 0 !important;
+}
+
+.business-hero {
+  width: 100%;
+  max-width: 100%;
+  isolation: isolate;
+}
+
+.business-hero-picture {
+  inset: -2px !important;
+  width: auto !important;
+  height: auto !important;
+  background: var(--navy) !important;
+}
+
+.business-hero-picture img {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+.business-receive-media {
+  background: #f5f7fb;
+}
+
+.business-receive-media > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+@media (max-width: 860px) {
+  .page-hero-account,
+  .page-hero-account .page-hero-image,
+  .page-hero-account .page-hero-image img {
+    width: 100% !important;
+  }
+
+  .business-hero-picture {
+    inset: auto !important;
+    width: 100% !important;
+  }
+
+  .business-hero-picture img,
+  .business-receive-media > img {
+    object-position: center center !important;
+  }
+}

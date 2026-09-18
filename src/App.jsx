@@ -466,7 +466,7 @@ function AccountOpeningPage() {
 
   return <div className="business-page" ref={scope}>
     <section className="business-hero">
-      <div className="business-hero-picture"><img src="/images/campaign-abrir-conta-v1.png" alt="Cliente abrindo sua conta CredMaisPay pelo celular" width="1672" height="940" fetchpriority="high" /></div>
+      <div className="business-hero-picture"><img src="/images/campaign-abrir-conta-v2.png" alt="Cliente abrindo sua conta CredMaisPay pelo celular" width="1672" height="941" fetchpriority="high" /></div>
       <div className="business-hero-copy">
         <p className="eyebrow light"><span /> CONTA CREDMAISPAY</p>
         <h1>Sua conta.<br /><em>Seu próximo passo.</em></h1>
@@ -480,7 +480,7 @@ function AccountOpeningPage() {
     <ProductRibbon tone="coral" items={["Abertura digital", "Pix e pagamentos", "Microcrédito", "Crédito para seus planos"]} />
 
     <section className="business-receive" id="recursos">
-      <Reveal className="business-receive-media"><img src="/images/campaign-business-story.png?v=3" alt="Empreendedora acompanhando sua vida financeira pelo celular" width="1672" height="940" loading="lazy" /><div className="receive-badge"><QrCode /><span>Pagamento concluído</span><strong>R$ 89,90</strong></div></Reveal>
+      <Reveal className="business-receive-media"><img src="/images/account-pix-merchant-v2.png" alt="Microempreendedor acompanhando um pagamento Pix pelo celular" width="1672" height="940" loading="lazy" /><div className="receive-badge"><QrCode /><span>Pagamento concluído</span><strong>R$ 89,90</strong></div></Reveal>
       <div className="business-receive-copy"><Reveal><p className="eyebrow dark"><span /> CONTA PARA A VIDA REAL</p><h2>Seu dinheiro.<br /><em>Mais perto de você.</em></h2><p>Consulte saldo, faça Pix, pague contas e acompanhe seus movimentos sem transformar a rotina em complicação.</p></Reveal><div className="receive-list"><Reveal><span>01</span><div><b>Pix em poucos passos</b><p>Envie, receba e consulte quando precisar.</p></div></Reveal><Reveal delay={.08}><span>02</span><div><b>Pagamentos organizados</b><p>Contas e comprovantes reunidos em um só lugar.</p></div></Reveal><Reveal delay={.16}><span>03</span><div><b>Alertas que ajudam</b><p>Reconheça cada movimento e mantenha o controle.</p></div></Reveal></div></div>
     </section>
 
