@@ -228,7 +228,16 @@ function HomePage() {
 
   return (
     <div ref={scope}>
-      <section className="home-hero">
+      <PageHero
+        kicker="CONTA CREDMAISPAY"
+        title="A rotina flui. "
+        accent="Você acompanha."
+        text="Pague, organize e visualize seus movimentos em uma experiência que coloca o essencial primeiro."
+        image="/images/campaign-conta-ultrawide.png?v=1"
+        alt="Empreendedora usando o celular para acompanhar sua conta CredMaisPay"
+      />
+      {/* Hero antigo mantido abaixo apenas para preservar as animações de referência durante a transição. */}
+      <section className="home-hero home-hero-legacy" aria-hidden="true">
         <div className="hero-content">
           <p className="eyebrow hero-kicker"><span /> SUA CONTA. SUAS ESCOLHAS.</p>
           <h1 className="hero-title"><span className="line">Mais crédito.</span><span className="line accent-text">Mais oportunidades.</span><span className="line">Para avançar.</span></h1>
@@ -484,7 +493,7 @@ function AccountOpeningPage() {
 
   return <div className="business-page" ref={scope}>
     <section className="business-hero">
-      <div className="business-hero-picture"><img src="/images/campaign-hero-v2.png" alt="Cliente abrindo sua conta CredMaisPay pelo celular" width="1672" height="941" fetchpriority="high" /></div>
+      <div className="business-hero-picture"><img src="/images/campaign-abrir-conta-v1.png" alt="Cliente abrindo sua conta CredMaisPay pelo celular" width="1672" height="940" fetchpriority="high" /></div>
       <div className="business-hero-copy">
         <p className="eyebrow light"><span /> CONTA CREDMAISPAY</p>
         <h1>Sua conta.<br /><em>Seu próximo passo.</em></h1>

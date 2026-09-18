@@ -22,6 +22,7 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 :where([id]) { scroll-margin-top: 104px; }
+.home-hero-legacy { display: none !important; }
 body { margin: 0; min-width: 320px; overflow-x: hidden; background: var(--paper); }
 button, a, input, select, textarea { touch-action: manipulation; -webkit-tap-highlight-color: rgba(9, 104, 246, .16); }
 button, input, textarea, select { font: inherit; }
@@ -1133,4 +1134,10 @@ p { line-height: 1.65; }
     object-fit: cover !important;
     object-position: center center !important;
   }
+}
+
+/* New full-bleed opening-account hero artwork: no side letterboxing. */
+.business-hero-picture img { object-fit: cover !important; object-position: center center !important; }
+@media (max-width: 860px) {
+  .business-hero-picture img { object-position: 72% center !important; }
 }
