@@ -465,7 +465,7 @@ function AccountOpeningPage() {
 
   return <div className="business-page" ref={scope}>
     <section className="business-hero">
-      <div className="business-hero-picture"><img src="/images/campaign-abrir-conta-v2.png" alt="Cliente abrindo sua conta CredMaisPay pelo celular" width="1672" height="941" fetchpriority="high" /></div>
+      <div className="business-hero-picture"><img src="/images/campaign-abrir-conta-v3.png?v=3" alt="Cliente abrindo sua conta CredMaisPay pelo celular" width="1884" height="835" fetchpriority="high" /></div>
       <div className="business-hero-copy">
         <p className="eyebrow light"><span /> CONTA CREDMAISPAY</p>
         <h1>Sua conta.<br /><em>Seu próximo passo.</em></h1>
