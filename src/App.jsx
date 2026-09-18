@@ -408,7 +408,7 @@ function AccountPage() {
   return <>
     <PageHero kicker="CONTA CREDMAISPAY" title="A rotina flui. " accent="Você acompanha." text="Pague, organize e visualize seus movimentos em uma experiência que coloca o essencial primeiro." image="/images/campaign-conta-ultrawide.png?v=1" alt="Empreendedora usando o celular para acompanhar sua conta CredMaisPay" />
     <ProductRibbon items={["Pix e pagamentos", "Visão da rotina", "Alertas úteis", "Controle no app"]} />
-    <FeatureIntro number="01" kicker="VISÃO DO DIA" title="Você abre. Você entende." text="Saldo, compromissos e atalhos organizados para uma leitura rápida — sem fazer você procurar o que importa." image="/images/campaign-conta-clareza-v1.png" alt="Empreendedora acompanhando sua vida financeira pelo celular" benefits={["Saldo e movimentações no mesmo lugar", "Pix, pagamentos e comprovantes acessíveis"]} />
+    <FeatureIntro number="01" kicker="VISÃO DO DIA" title="Você abre. Você entende." text="Saldo, compromissos e atalhos organizados para uma leitura rápida — sem fazer você procurar o que importa." image="/images/campaign-conta-clareza-v1.png?v=3" alt="Empreendedora acompanhando sua vida financeira pelo celular" benefits={["Saldo e movimentações no mesmo lugar", "Pix, pagamentos e comprovantes acessíveis"]} />
     <AccountVisualFeatures />
     <CampaignBanner image="/images/conta-lifestyle.png" alt="Cliente usando o celular em uma sala iluminada" eyebrow="DINHEIRO NA VIDA REAL" title={<>Sua rotina muda.<br />Sua conta acompanha.</>} text="Da casa ao trabalho, uma experiência construída para estar presente sem ocupar espaço demais." cta="Conhecer a experiência" />
     <StepsSection title="Da abertura ao primeiro movimento." steps={[["01", "Conheça", "Veja os recursos e as condições disponíveis."], ["02", "Cadastre", "Informe seus dados em um fluxo guiado."], ["03", "Comece", "Acesse a experiência e organize sua rotina."]]} />
@@ -480,7 +480,7 @@ function AccountOpeningPage() {
     <ProductRibbon tone="coral" items={["Abertura digital", "Pix e pagamentos", "Microcrédito", "Crédito para seus planos"]} />
 
     <section className="business-receive" id="recursos">
-      <Reveal className="business-receive-media"><img src="/images/campaign-business-story.png" alt="Cliente acompanhando sua conta CredMaisPay pelo celular" width="1024" height="1536" loading="lazy" /><div className="receive-badge"><QrCode /><span>Pagamento concluído</span><strong>R$ 89,90</strong></div></Reveal>
+      <Reveal className="business-receive-media"><img src="/images/campaign-business-story.png?v=3" alt="Empreendedora acompanhando sua vida financeira pelo celular" width="1672" height="940" loading="lazy" /><div className="receive-badge"><QrCode /><span>Pagamento concluído</span><strong>R$ 89,90</strong></div></Reveal>
       <div className="business-receive-copy"><Reveal><p className="eyebrow dark"><span /> CONTA PARA A VIDA REAL</p><h2>Seu dinheiro.<br /><em>Mais perto de você.</em></h2><p>Consulte saldo, faça Pix, pague contas e acompanhe seus movimentos sem transformar a rotina em complicação.</p></Reveal><div className="receive-list"><Reveal><span>01</span><div><b>Pix em poucos passos</b><p>Envie, receba e consulte quando precisar.</p></div></Reveal><Reveal delay={.08}><span>02</span><div><b>Pagamentos organizados</b><p>Contas e comprovantes reunidos em um só lugar.</p></div></Reveal><Reveal delay={.16}><span>03</span><div><b>Alertas que ajudam</b><p>Reconheça cada movimento e mantenha o controle.</p></div></Reveal></div></div>
     </section>
 
