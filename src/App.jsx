@@ -406,9 +406,9 @@ function PageHero({ kicker, title, accent, text, image, alt, tone = "navy", chil
 
 function AccountPage() {
   return <>
-    <PageHero kicker="CONTA CREDMAISPAY" title="A rotina flui. " accent="Você acompanha." text="Pague, organize e visualize seus movimentos em uma experiência que coloca o essencial primeiro." image="/images/campaign-conta-ultrawide.png?v=1" alt="Empreendedora usando o celular para acompanhar sua conta CredMaisPay" />
+    <PageHero kicker="CONTA CREDMAISPAY" title="A rotina flui. " accent="Você acompanha." text="Pague, organize e visualize seus movimentos em uma experiência que coloca o essencial primeiro." image="/images/campaign-conta-ultrawide-v2.png?v=2" alt="Empreendedora usando o celular para acompanhar sua conta CredMaisPay" />
     <ProductRibbon items={["Pix e pagamentos", "Visão da rotina", "Alertas úteis", "Controle no app"]} />
-    <FeatureIntro number="01" kicker="VISÃO DO DIA" title="Você abre. Você entende." text="Saldo, compromissos e atalhos organizados para uma leitura rápida — sem fazer você procurar o que importa." image="/images/campaign-conta-clareza-v1.png?v=3" alt="Empreendedora acompanhando sua vida financeira pelo celular" benefits={["Saldo e movimentações no mesmo lugar", "Pix, pagamentos e comprovantes acessíveis"]} />
+    <FeatureIntro number="01" kicker="VISÃO DO DIA" title="Você abre. Você entende." text="Saldo, compromissos e atalhos organizados para uma leitura rápida — sem fazer você procurar o que importa." image="/images/campaign-conta-clareza-v4.png?v=4" alt="Empreendedora acompanhando sua vida financeira pelo celular" benefits={["Saldo e movimentações no mesmo lugar", "Pix, pagamentos e comprovantes acessíveis"]} />
     <AccountVisualFeatures />
     <CampaignBanner image="/images/conta-lifestyle.png" alt="Cliente usando o celular em uma sala iluminada" eyebrow="DINHEIRO NA VIDA REAL" title={<>Sua rotina muda.<br />Sua conta acompanha.</>} text="Da casa ao trabalho, uma experiência construída para estar presente sem ocupar espaço demais." cta="Conhecer a experiência" />
     <StepsSection title="Da abertura ao primeiro movimento." steps={[["01", "Conheça", "Veja os recursos e as condições disponíveis."], ["02", "Cadastre", "Informe seus dados em um fluxo guiado."], ["03", "Comece", "Acesse a experiência e organize sua rotina."]]} />
