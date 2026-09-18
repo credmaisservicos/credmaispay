@@ -21,6 +21,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+:where([id]) { scroll-margin-top: 104px; }
 body { margin: 0; min-width: 320px; overflow-x: hidden; background: var(--paper); }
 button, a, input, select, textarea { touch-action: manipulation; -webkit-tap-highlight-color: rgba(9, 104, 246, .16); }
 button, input, textarea, select { font: inherit; }
@@ -1100,9 +1101,36 @@ p { line-height: 1.65; }
   .page-hero-account {
     width: 100vw;
     margin-inline: calc(50% - 50vw);
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding-top: 74px;
+    background: var(--navy);
   }
-  .page-hero-account .page-hero-image,
+  .page-hero-account .page-hero-copy {
+    order: 1;
+    width: 100%;
+    min-height: 0;
+    padding: 58px 22px 54px;
+    background: var(--navy);
+  }
+  .page-hero-account .page-hero-copy::before {
+    display: none;
+  }
+  .page-hero-account .page-hero-image {
+    order: 2;
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    width: 100vw !important;
+    height: auto;
+    aspect-ratio: 1916 / 821;
+    background: var(--navy) !important;
+  }
   .page-hero-account .page-hero-image img {
     width: 100vw !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
   }
 }

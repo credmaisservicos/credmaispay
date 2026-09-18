@@ -54,6 +54,22 @@ const canonicalPath = {
   "/cartao": "/emprestimos",
 };
 
+const imageDimensions = {
+  "campaign-flow-receber.png": [1254, 1254],
+  "campaign-flow-planejar.png": [2172, 724],
+  "campaign-business-story.png": [1024, 1536],
+  "conta-pagamento.png": [1448, 1086],
+  "microcredit-understand-banner-v2.png": [1448, 1086],
+  "produto-celular.png": [1024, 1536],
+  "produto-tablet.png": [1122, 1402],
+  "produto-notebook.png": [1536, 1024],
+};
+
+function getImageDimensions(src, fallback = [1672, 941]) {
+  const filename = src.split("/").pop().split("?")[0];
+  return imageDimensions[filename] || fallback;
+}
+
 const solutions = [
   { icon: Smartphone, number: "01", label: "Conta", title: "Uma conta para a vida real.", text: "Movimente, acompanhe e organize seu dinheiro em uma experiência direta.", color: "blue", href: "/conta" },
   { icon: Banknote, number: "02", label: "Microcrédito", title: "Crédito para seguir em frente.", text: "Possibilidades de empréstimo para quem trabalha, empreende e precisa de fôlego.", color: "gold", href: "/emprestimos" },
@@ -147,7 +163,7 @@ function CookieConsent() {
           <label><input type="checkbox" checked={analytics} onChange={(event) => setAnalytics(event.target.checked)} /> <span><b>Analíticos</b><small>Ajudam a entender o uso do site, sem finalidade de publicidade.</small></span></label>
           <label><input type="checkbox" checked={marketing} onChange={(event) => setMarketing(event.target.checked)} /> <span><b>Marketing</b><small>Permitem personalizar comunicações, quando disponíveis.</small></span></label>
         </div> : null}
-        <a className="cookie-policy-link" href="#legal">Consultar política de privacidade</a>
+        <Link className="cookie-policy-link" to="/ajuda#legal">Consultar política de privacidade</Link>
       </div>
       <div className="cookie-consent-actions">
         {preferences ? <button className="button button-dark" type="button" onClick={() => save("preferences")}>Salvar preferências <ArrowRight size={16} /></button> : <button className="button button-dark" type="button" onClick={() => save("accepted")}>Aceitar todos <ArrowRight size={16} /></button>}
@@ -227,7 +243,7 @@ function HomePage() {
           </div>
         </div>
         <div className="hero-visual">
-          <img src="/images/campaign-hero-v3.png" alt="Cliente usando o celular em campanha CredMaisPay" width="1536" height="1024" fetchpriority="high" />
+          <img src="/images/campaign-hero-v3.png" alt="Cliente usando o celular em campanha CredMaisPay" width="1672" height="940" fetchpriority="high" />
           <div className="float-card balance-card"><span>Saldo disponível</span><strong>R$ 8.420,70</strong><small><TrendingUp size={14} /> organização em dia</small></div>
           <div className="float-card pix-card"><QrCode /><span>Pix enviado</span><b>na hora</b></div>
           <div className="hero-stamp"><Sparkles /> MAIS SIMPLES<br />MAIS PERTO</div>
@@ -287,7 +303,7 @@ function HomePage() {
           <Link className="inline-link dark-link" to="/abrir-conta">Ver como abrir a conta <ArrowRight size={16} /></Link>
         </Reveal>
         <Reveal className="business-image" delay={0.1}>
-          <img src="/images/login-credmaispay.png" alt="Cliente começando sua jornada CredMaisPay pelo celular" width="1672" height="940" loading="lazy" />
+          <img src="/images/login-credmaispay.png" alt="Cliente começando sua jornada CredMaisPay pelo celular" width="1122" height="1402" loading="lazy" />
           <div className="sales-card"><small>Jornada digital</small><strong>3 passos</strong><div className="mini-chart"><i /><i /><i /><i /><i /></div></div>
         </Reveal>
       </section>
@@ -304,7 +320,7 @@ function HomePage() {
 
       <section className="section app-preview">
         <Reveal className="app-copy"><p className="eyebrow dark"><span /> TUDO NO MESMO LUGAR</p><h2>Abra o app.<br /><em>Veja sua vida financeira.</em></h2><p>Uma tela inicial que mostra o essencial e deixa o próximo passo sempre ao alcance.</p><Link to="/conta" className="button button-dark">Descobrir recursos <ArrowRight size={18} /></Link></Reveal>
-        <Reveal className="app-device-product" delay={0.1}><img src="/images/produto-tablet.png" alt="Tablet exibindo a visão financeira CredMaisPay" width="1365" height="2048" loading="lazy" /></Reveal>
+        <Reveal className="app-device-product" delay={0.1}><img src="/images/produto-tablet.png" alt="Tablet exibindo a visão financeira CredMaisPay" width="1122" height="1402" loading="lazy" /></Reveal>
         <div className="app-orbit orbit-one">Pix</div><div className="app-orbit orbit-two">Crédito</div><div className="app-orbit orbit-three">Controle</div>
       </section>
 
@@ -363,7 +379,7 @@ function MoneyFlow() {
     { step: "02", title: "Pague com clareza.", text: "Resolva pagamentos e transferências com confirmação visível antes de concluir.", image: "/images/campaign-flow-pagar.png", alt: "Cliente realizando operações financeiras pelo celular", benefits: ["Atalhos para ações frequentes", "Alertas a cada movimento"], cta: "Ver os recursos", href: "/conta", tone: "flow-navy" },
     { step: "03", title: "Transforme movimento em plano.", text: "Use a visão da rotina para entender o presente e preparar o próximo passo.", image: "/images/campaign-flow-planejar.png", alt: "Pessoa analisando uma possibilidade financeira", benefits: ["Pix e crédito no mesmo lugar", "Informação para decidir melhor"], cta: "Conhecer o crédito", href: "/emprestimos", tone: "flow-light" },
   ];
-  return <section className="money-flow" ref={ref}><div className="flow-track">{panels.map(({ step, title, text, image, alt, benefits, cta, href, tone }) => <article className={`flow-panel ${tone}`} key={step}><div className="flow-copy"><span>{step} — SUA ROTINA FINANCEIRA</span><h2>{title}</h2><p>{text}</p><ul>{benefits.map((benefit) => <li key={benefit}><Check />{benefit}</li>)}</ul><Link className="button button-light" to={href}>{cta}<ArrowRight size={18} /></Link></div><div className="flow-media"><img src={image} alt={alt} width="2048" height="1152" loading="lazy" /><b>{step}</b></div></article>)}</div></section>;
+  return <section className="money-flow" ref={ref}><div className="flow-track">{panels.map(({ step, title, text, image, alt, benefits, cta, href, tone }) => { const [width, height] = getImageDimensions(image, [2048, 1152]); return <article className={`flow-panel ${tone}`} key={step}><div className="flow-copy"><span>{step} — SUA ROTINA FINANCEIRA</span><h2>{title}</h2><p>{text}</p><ul>{benefits.map((benefit) => <li key={benefit}><Check aria-hidden="true" />{benefit}</li>)}</ul><Link className="button button-light" to={href}>{cta}<ArrowRight size={18} /></Link></div><div className="flow-media"><img src={image} alt={alt} width={width} height={height} loading="lazy" /><b>{step}</b></div></article>; })}</div></section>;
 }
 
 function PhoneMockup() {
@@ -375,7 +391,7 @@ function Reveal({ children, className = "", delay = 0 }) {
 }
 
 function FaqList({ items }) {
-  return <div className="faq-list">{items.map(([question, answer], index) => <details key={question} open={index === 0}><summary><span>{String(index + 1).padStart(2, "0")}</span>{question}<ChevronDown /></summary><p>{answer}</p></details>)}</div>;
+  return <div className="faq-list">{items.map(([question, answer], index) => <details key={question} open={index === 0}><summary><span>{String(index + 1).padStart(2, "0")}</span>{question}<ChevronDown aria-hidden="true" /></summary><p>{answer}</p></details>)}</div>;
 }
 
 function ClosingCTA() {
@@ -393,7 +409,8 @@ function CampaignBanner({ image, alt, eyebrow, title, text, cta, to = "/ajuda#co
     if (!imageElement || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.fromTo(imageElement, { scale: 1.06, yPercent: -2 }, { scale: 1.06, yPercent: 2, ease: "none", scrollTrigger: { trigger: ref.current, start: "top bottom", end: "bottom top", scrub: .7 } });
   }, { scope: ref });
-  return <section ref={ref} className={`campaign-banner banner-${tone} ${reverse ? "is-reverse" : ""}`}><Reveal className="campaign-photo"><img src={image} alt={alt} width="1672" height="941" loading="lazy" /></Reveal><div className="campaign-copy"><Reveal><p className="eyebrow light"><span /> {eyebrow}</p><h2>{title}</h2><p>{text}</p><Link className="button button-light" to={to}>{cta}<ArrowRight size={18} /></Link></Reveal><div className="campaign-index" aria-hidden="true">C+</div></div></section>;
+  const [width, height] = getImageDimensions(image);
+  return <section ref={ref} className={`campaign-banner banner-${tone} ${reverse ? "is-reverse" : ""}`}><Reveal className="campaign-photo"><img src={image} alt={alt} width={width} height={height} loading="lazy" /></Reveal><div className="campaign-copy"><Reveal><p className="eyebrow light"><span /> {eyebrow}</p><h2>{title}</h2><p>{text}</p><Link className="button button-light" to={to}>{cta}<ArrowRight size={18} /></Link></Reveal><div className="campaign-index" aria-hidden="true">C+</div></div></section>;
 }
 
 function PageHero({ kicker, title, accent, text, image, alt, tone = "navy", children }) {
@@ -467,7 +484,7 @@ function AccountOpeningPage() {
 
   return <div className="business-page" ref={scope}>
     <section className="business-hero">
-      <div className="business-hero-picture"><img src="/images/campaign-hero-v2.png" alt="Cliente abrindo sua conta CredMaisPay pelo celular" width="1672" height="940" fetchpriority="high" /></div>
+      <div className="business-hero-picture"><img src="/images/campaign-hero-v2.png" alt="Cliente abrindo sua conta CredMaisPay pelo celular" width="1672" height="941" fetchpriority="high" /></div>
       <div className="business-hero-copy">
         <p className="eyebrow light"><span /> CONTA CREDMAISPAY</p>
         <h1>Sua conta.<br /><em>Seu próximo passo.</em></h1>
@@ -549,7 +566,7 @@ function SecurityPage() {
 
 function HelpPage() {
   return <>
-    <section className="help-hero"><div><p className="eyebrow light"><span /> CENTRAL DE AJUDA</p><h1>Como podemos<br /><em>ajudar agora?</em></h1><p>Encontre respostas rápidas ou indique o assunto para receber orientação.</p><label className="search-box"><MousePointer2 /><input name="help-search" autoComplete="off" aria-label="Buscar na central de ajuda" placeholder="Busque por conta, crédito ou Pix…" /></label></div><div className="help-hero-media"><img src="/images/campaign-ajuda-v3.png" alt="Especialista CredMaisPay pronto para atender" width="1536" height="1024" fetchpriority="high" /><div className="help-cards"><article><MessageCircle /><h3>Atendimento</h3><p>Escolha o assunto e encontre o caminho adequado.</p><ArrowRight /></article><article><ShieldCheck /><h3>Segurança</h3><p>Veja orientações para agir em situações urgentes.</p><ArrowRight /></article></div></div></section>
+    <section className="help-hero"><div><p className="eyebrow light"><span /> CENTRAL DE AJUDA</p><h1>Como podemos<br /><em>ajudar agora?</em></h1><p>Encontre respostas rápidas ou indique o assunto para receber orientação.</p><label className="search-box"><MousePointer2 aria-hidden="true" /><input name="help-search" autoComplete="off" aria-label="Buscar na central de ajuda" placeholder="Busque por conta, crédito ou Pix…" /></label></div><div className="help-hero-media"><img src="/images/campaign-ajuda-v3.png" alt="Especialista CredMaisPay pronto para atender" width="1672" height="941" fetchpriority="high" /><div className="help-cards"><article><MessageCircle aria-hidden="true" /><h3>Atendimento</h3><p>Escolha o assunto e encontre o caminho adequado.</p><ArrowRight aria-hidden="true" /></article><article><ShieldCheck aria-hidden="true" /><h3>Segurança</h3><p>Veja orientações para agir em situações urgentes.</p><ArrowRight aria-hidden="true" /></article></div></div></section>
     <section className="section help-topics"><SectionHeading kicker="ASSUNTOS MAIS BUSCADOS" title={<>Comece pelo<br /><em>que você precisa.</em></>} text="Respostas organizadas por tema." /><div className="topic-grid">{[[Smartphone,"Conta e acesso"],[Banknote,"Empréstimos"],[QrCode,"Pix e pagamentos"],[PiggyBank,"Abertura de conta"],[LockKeyhole,"Segurança"],[ReceiptText,"Documentos"]].map(([Icon, label]) => <a href="#contato" key={label}><Icon /><span>{label}</span><ArrowRight /></a>)}</div></section>
     <CampaignBanner image="/images/ajuda-atendimento.png" alt="Especialista de atendimento conversando com uma cliente" eyebrow="GENTE QUE ESCUTA" title={<>Atendimento claro.<br />Próximo passo simples.</>} text="Comece pelo assunto e encontre a orientação certa para continuar com segurança." cta="Falar com a equipe" to="#contato" tone="blue" />
     <section className="section contact-panel" id="contato"><Reveal><p className="eyebrow dark"><span /> FALE COM A CREDMAISPAY</p><h2>Conte o que você precisa.</h2><p>Como os canais oficiais ainda serão confirmados, este formulário funciona como uma prévia visual e não envia dados.</p></Reveal><ContactForm /></section>
@@ -585,7 +602,7 @@ function LoginPage() {
       </div>
     </motion.div>
     <motion.aside className="login-visual" initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}>
-      <img src="/images/campaign-login-v2.png" alt="Cliente acessando a conta CredMaisPay" width="1024" height="1536" fetchpriority="high" />
+      <img src="/images/campaign-login-v2.png" alt="Cliente acessando a conta CredMaisPay" width="1122" height="1402" fetchpriority="high" />
       <div className="login-campaign"><span>#sejaCREDMAISpay</span><h2>Mais crédito.<br />Mais oportunidades.<br />Mais movimento.</h2><p>Sem banco, sem gerente, sem burocracia.</p></div>
       <div className="login-security-pill"><ShieldCheck /> Ambiente protegido</div>
     </motion.aside>
@@ -594,7 +611,8 @@ function LoginPage() {
 
 function FeatureIntro({ number, kicker, title, text, image, alt, benefits = [], dark = false }) {
   const mediaClass = image.includes("produto-monitor") ? "is-device" : image.includes("produto-celular") ? "is-portrait" : image.includes("cartao-aproximacao") ? "is-payment" : image.includes("microcredit-understand") ? "is-credit-understand" : "";
-  return <section className={`feature-intro ${dark ? "is-dark" : ""}`}><Reveal className={`feature-media ${mediaClass}`}><img src={image} alt={alt} width="1672" height="941" loading="lazy" /><span>{number}</span></Reveal><Reveal className="feature-copy" delay={0.1}><p className={`eyebrow ${dark ? "light" : "dark"}`}><span /> {kicker}</p><h2>{title}</h2><p>{text}</p><ul>{benefits.map((benefit) => <li key={benefit}><Check />{benefit}</li>)}</ul><Link className={`button ${dark ? "button-light" : "button-dark"}`} to="/ajuda#contato">Quero conhecer <ArrowRight size={18} /></Link></Reveal></section>;
+  const [width, height] = getImageDimensions(image);
+  return <section className={`feature-intro ${dark ? "is-dark" : ""}`}><Reveal className={`feature-media ${mediaClass}`}><img src={image} alt={alt} width={width} height={height} loading="lazy" /><span>{number}</span></Reveal><Reveal className="feature-copy" delay={0.1}><p className={`eyebrow ${dark ? "light" : "dark"}`}><span /> {kicker}</p><h2>{title}</h2><p>{text}</p><ul>{benefits.map((benefit) => <li key={benefit}><Check aria-hidden="true" />{benefit}</li>)}</ul><Link className={`button ${dark ? "button-light" : "button-dark"}`} to="/ajuda#contato">Quero conhecer <ArrowRight size={18} /></Link></Reveal></section>;
 }
 
 function BentoFeatures({ items }) {
