@@ -220,9 +220,6 @@ function HomePage() {
   useGSAP(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
-    gsap.from(".hero-kicker, .hero-title .line, .hero-copy, .hero-actions, .hero-proof", { opacity: 0, y: 38, duration: 0.85, stagger: 0.1, ease: "power3.out", delay: 0.15 });
-    gsap.from(".hero-visual", { opacity: 0, scale: 1.06, duration: 1.2, ease: "power3.out" });
-    gsap.to(".hero-visual img", { yPercent: 8, scale: 1.05, ease: "none", scrollTrigger: { trigger: ".home-hero", start: "top top", end: "bottom top", scrub: true } });
     gsap.to(".scroll-progress", { scaleX: 1, ease: "none", scrollTrigger: { trigger: document.documentElement, start: "top top", end: "bottom bottom", scrub: 0.25 } });
   }, { scope });
 
@@ -236,30 +233,6 @@ function HomePage() {
         image="/images/campaign-conta-ultrawide.png?v=1"
         alt="Empreendedora usando o celular para acompanhar sua conta CredMaisPay"
       />
-      {/* Hero antigo mantido abaixo apenas para preservar as animações de referência durante a transição. */}
-      <section className="home-hero home-hero-legacy" aria-hidden="true">
-        <div className="hero-content">
-          <p className="eyebrow hero-kicker"><span /> SUA CONTA. SUAS ESCOLHAS.</p>
-          <h1 className="hero-title"><span className="line">Mais crédito.</span><span className="line accent-text">Mais oportunidades.</span><span className="line">Para avançar.</span></h1>
-          <p className="hero-copy">Crédito para quem trabalha e empreende, com Pix e uma jornada clara para abrir sua conta.</p>
-          <div className="hero-actions">
-            <MagneticLink to="/login" className="button button-light">Abra sua conta <ArrowRight size={18} /></MagneticLink>
-            <Link to="/conta" className="inline-link">Conhecer a conta <ArrowRight size={16} /></Link>
-          </div>
-          <div className="hero-proof">
-            <div className="avatar-stack"><span>+</span><span>R$</span><span>✓</span></div>
-            <p><strong>Feito para acompanhar</strong><br />a sua rotina e os seus planos.</p>
-          </div>
-        </div>
-        <div className="hero-visual">
-          <img src="/images/campaign-hero-v3.png" alt="Cliente usando o celular em campanha CredMaisPay" width="1672" height="940" fetchpriority="high" />
-          <div className="float-card balance-card"><span>Saldo disponível</span><strong>R$ 8.420,70</strong><small><TrendingUp size={14} /> organização em dia</small></div>
-          <div className="float-card pix-card"><QrCode /><span>Pix enviado</span><b>na hora</b></div>
-          <div className="hero-stamp"><Sparkles /> MAIS SIMPLES<br />MAIS PERTO</div>
-        </div>
-        <div className="hero-index">01 — 06</div>
-      </section>
-
       <Ticker />
 
       <CreditManifesto />
@@ -619,7 +592,7 @@ function LoginPage() {
 }
 
 function FeatureIntro({ number, kicker, title, text, image, alt, benefits = [], dark = false }) {
-  const mediaClass = image.includes("produto-monitor") ? "is-device" : image.includes("produto-celular") ? "is-portrait" : image.includes("cartao-aproximacao") ? "is-payment" : image.includes("microcredit-understand") ? "is-credit-understand" : "";
+  const mediaClass = image.includes("produto-celular") ? "is-portrait" : image.includes("microcredit-understand") ? "is-credit-understand" : "";
   const [width, height] = getImageDimensions(image);
   return <section className={`feature-intro ${dark ? "is-dark" : ""}`}><Reveal className={`feature-media ${mediaClass}`}><img src={image} alt={alt} width={width} height={height} loading="lazy" /><span>{number}</span></Reveal><Reveal className="feature-copy" delay={0.1}><p className={`eyebrow ${dark ? "light" : "dark"}`}><span /> {kicker}</p><h2>{title}</h2><p>{text}</p><ul>{benefits.map((benefit) => <li key={benefit}><Check aria-hidden="true" />{benefit}</li>)}</ul><Link className={`button ${dark ? "button-light" : "button-dark"}`} to="/ajuda#contato">Quero conhecer <ArrowRight size={18} /></Link></Reveal></section>;
 }
