@@ -43,6 +43,9 @@ p { line-height: 1.65; }
 .site-header { height: 88px; padding: 0 3.2vw; display: flex; align-items: center; justify-content: space-between; gap: 28px; position: absolute; inset: 0 0 auto; z-index: 100; color: #fff; background: rgba(3,20,47,.96); border-bottom: 1px solid rgba(255,255,255,.14); box-shadow: 0 12px 32px rgba(2,14,36,.16); backdrop-filter: blur(18px) saturate(135%); }
 .brand { display: flex; align-items: center; gap: 10px; font-family: "Manrope", sans-serif; font-weight: 800; letter-spacing: -.05em; font-size: 20px; white-space: nowrap; }
 .brand img { width: 42px; height: 42px; }
+.brand-wordmark { width: 156px !important; height: auto !important; max-height: 44px; object-fit: contain; }
+.footer-brand .brand > img { content: url('/brand/credmaispay-wordmark.png'); width: 156px; height: auto; max-height: 44px; object-fit: contain; }
+.footer-brand .brand > span { display: none; }
 .brand > span > span { color: #36a4ff; }.logo-mini span { color: var(--gold); }
 .brand b { display: block; color: #aac8ff; font-size: 9px; letter-spacing: .42em; margin-top: -4px; }
 .main-nav { display: flex; align-items: center; gap: clamp(16px, 2.2vw, 36px); }
@@ -410,7 +413,7 @@ p { line-height: 1.65; }
   .main-nav { padding: 22px; box-shadow: 0 24px 45px rgba(2,12,33,.28); }
   .main-nav a { min-height: 56px; padding-block: 0; }
   h2 { font-size: clamp(2.8rem, 10vw, 5rem); }
-  .site-header { height: 74px; padding: 0 20px; position: absolute; }.brand img { width: 36px; height: 36px; }.brand { font-size: 17px; }.header-actions .button { display: none; }.menu-toggle { display: block; }
+  .site-header { height: 74px; padding: 0 20px; position: absolute; }.brand img { width: 36px; height: 36px; }.brand-wordmark, .footer-brand .brand > img { width: 142px !important; max-height: 38px; }.brand { font-size: 17px; }.header-actions .button { display: none; }.menu-toggle { display: block; }
   .main-nav { position: absolute; top: 73px; left: 0; right: 0; padding: 30px 22px 36px; background: var(--navy); display: grid; gap: 0; opacity: 0; pointer-events: none; transform: translateY(-12px); transition: .25s; border-top: 1px solid rgba(255,255,255,.12); }.main-nav.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); }.main-nav a { padding: 16px 0; font-size: 18px; border-bottom: 1px solid rgba(255,255,255,.12); }
   .main-nav .mobile-access-link { display: flex!important; color: var(--lime); }
   .home-hero { height: auto; min-height: 100svh; grid-template-columns: 1fr; padding-top: 74px; }.hero-content { padding: 70px 22px 55px; min-height: 600px; }.hero-title { font-size: clamp(3.5rem, 16vw, 5.8rem); }.hero-copy { font-size: 16px; }.hero-proof { margin-top: 36px; }.hero-visual { min-height: 560px; }.hero-visual::after { box-shadow: inset 0 32px 45px -30px var(--navy); }.hero-index { display: none; }.balance-card { left: 18px; bottom: 25px; }.hero-stamp { width: 92px; height: 92px; right: 20px; bottom: 28px; }

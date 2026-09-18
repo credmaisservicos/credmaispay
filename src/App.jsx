@@ -182,7 +182,7 @@ function Header() {
   return (
     <header className="site-header">
       <Link className="brand" to="/" aria-label="CredMaisPay, início" translate="no">
-        <img src="/brand/credmaispay-symbol.svg" alt="" width="96" height="96" />
+        <img className="brand-wordmark" src="/brand/credmaispay-wordmark.png" alt="CredMaisPay" width="620" height="166" />
         <span>CRED<span>MAIS</span><b>PAY</b></span>
       </Link>
       <nav className={open ? "main-nav is-open" : "main-nav"} aria-label="Navegação principal">
@@ -567,7 +567,7 @@ function LoginPage() {
 
   return <section className="login-page">
     <motion.div className="login-panel" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}>
-      <Link className="brand login-brand" to="/" aria-label="CredMaisPay, voltar ao início" translate="no"><img src="/brand/credmaispay-symbol.svg" alt="" width="96" height="96" /><span>CRED<span>MAIS</span><b>PAY</b></span></Link>
+      <Link className="brand login-brand" to="/" aria-label="CredMaisPay, voltar ao início" translate="no"><img className="brand-wordmark" src="/brand/credmaispay-wordmark.png" alt="CredMaisPay" width="620" height="166" /></Link>
       <div className="login-content">
         <p className="eyebrow dark"><span /> ÁREA SEGURA</p>
         <h1>Sua vida financeira,<br /><em>do seu jeito.</em></h1>
