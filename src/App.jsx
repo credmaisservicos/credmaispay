@@ -34,7 +34,7 @@ import {
   X,
   Zap,
 } from "lucide-react";
-import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
+import { Link, NavLink, Route, Routes, useLocation, useParams } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -47,6 +47,7 @@ const pageMeta = {
   "/empresas": ["Conta CredMaisPay para pessoa física", "Conheça a conta CredMaisPay para pessoas físicas e veja como começar sua jornada digital."],
   "/seguranca": ["Segurança | CredMaisPay", "Tecnologia e informação clara para ajudar a proteger sua rotina financeira."],
   "/ajuda": ["Ajuda e atendimento | CredMaisPay", "Encontre respostas e canais de atendimento CredMaisPay."],
+  "/blog": ["Blog CredMaisPay | Pix, segurança e crédito", "Conteúdos claros para cuidar do seu dinheiro, usar o Pix com segurança e entender possibilidades de crédito."],
   "/login": ["Acessar conta | CredMaisPay", "Acesse com segurança a experiência digital CredMaisPay."],
 };
 
@@ -124,6 +125,8 @@ function App() {
             <Route path="/empresas" element={<AccountOpeningPage />} />
             <Route path="/seguranca" element={<SecurityPage />} />
             <Route path="/ajuda" element={<HelpPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogArticlePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="*" element={<HomePage />} />
           </Routes>
@@ -190,6 +193,7 @@ function Header() {
         <NavLink to="/abrir-conta">Abra sua conta</NavLink>
         <NavLink to="/seguranca">Segurança</NavLink>
         <NavLink to="/ajuda">Ajuda</NavLink>
+        <NavLink to="/blog">Blog</NavLink>
         <NavLink className="mobile-access-link" to="/login">Acessar conta</NavLink>
       </nav>
       <div className="header-actions">
@@ -310,7 +314,7 @@ function HomePage() {
         <FaqList items={homeFaqs} />
       </section>
 
-      <ClosingCTA />
+      <ClosingCTA kicker="A SUA ROTINA FINANCEIRA" title="Seu próximo passo." accent="começa agora." text="Conta, Pix e microcrédito para transformar intenção em movimento." cta="Abrir minha conta" to="/abrir-conta" />
     </div>
   );
 }
@@ -375,12 +379,12 @@ function FaqList({ items }) {
   return <div className="faq-list">{items.map(([question, answer], index) => <details key={question} open={index === 0}><summary><span>{String(index + 1).padStart(2, "0")}</span>{question}<ChevronDown aria-hidden="true" /></summary><p>{answer}</p></details>)}</div>;
 }
 
-function ClosingCTA() {
-  return <section className="closing-cta"><div className="cta-orb orb-a" /><div className="cta-orb orb-b" /><Reveal><p className="eyebrow light"><span /> #sejaCREDMAISpay</p><h2>Mais crédito.<br /><em>Mais oportunidades.</em></h2><p>Sem banco, sem gerente, sem burocracia. Crédito sujeito à análise e aprovação.</p><MagneticLink to="/login" className="button button-gold">Abra sua conta <ArrowRight size={18} /></MagneticLink></Reveal></section>;
+function ClosingCTA({ kicker = "#sejaCREDMAISpay", title = "Mais crédito.", accent = "Mais oportunidades.", text = "Sem banco, sem gerente, sem burocracia. Crédito sujeito à análise e aprovação.", cta = "Abra sua conta", to = "/login" }) {
+  return <section className="closing-cta"><div className="cta-orb orb-a" /><div className="cta-orb orb-b" /><Reveal><p className="eyebrow light"><span /> {kicker}</p><h2>{title}<br /><em>{accent}</em></h2><p>{text}</p><MagneticLink to={to} className="button button-gold">{cta} <ArrowRight size={18} /></MagneticLink></Reveal></section>;
 }
 
 function ProductRibbon({ items, tone = "blue" }) {
-  return <section className={`product-ribbon ribbon-${tone}`} aria-label="Destaques do produto"><span>CredMaisPay</span>{items.map((item) => <div key={item}><Check aria-hidden="true" />{item}</div>)}</section>;
+  return <section className={`product-ribbon ribbon-${tone}`} aria-label="Destaques do produto"><div className="product-ribbon-track">{[0, 1].map((copy) => <div className="product-ribbon-group" key={copy} aria-hidden={copy === 1}><span>CredMaisPay</span>{items.map((item) => <div key={`${copy}-${item}`}><Check aria-hidden="true" />{item}</div>)}</div>)}</div></section>;
 }
 
 function CampaignBanner({ image, alt, eyebrow, title, text, cta, to = "/ajuda#contato", tone = "navy", reverse = false }) {
@@ -407,14 +411,14 @@ function AccountPage() {
   return <>
     <PageHero kicker="CONTA CREDMAISPAY" title="A rotina flui. " accent="Você acompanha." text="Pague, organize e visualize seus movimentos em uma experiência que coloca o essencial primeiro." image="/images/campaign-conta-ultrawide-v2.png?v=2" alt="Empreendedora usando o celular para acompanhar sua conta CredMaisPay" />
     <ProductRibbon items={["Pix e pagamentos", "Visão da rotina", "Alertas úteis", "Controle no app"]} />
-    <FeatureIntro number="01" kicker="VISÃO DO DIA" title="Você abre. Você entende." text="Saldo, compromissos e atalhos organizados para uma leitura rápida — sem fazer você procurar o que importa." image="/images/campaign-conta-clareza-v4.png?v=4" alt="Empreendedora acompanhando sua vida financeira pelo celular" benefits={["Saldo e movimentações no mesmo lugar", "Pix, pagamentos e comprovantes acessíveis"]} />
+    <FeatureIntro number="01" kicker="VISÃO DO DIA" title="Você abre. Você entende." text="Saldo, compromissos e atalhos organizados para uma leitura rápida — sem fazer você procurar o que importa." image="/images/campaign-conta-clareza-v5.png" alt="Mulher de azul acompanhando sua vida financeira pelo celular" benefits={["Saldo e movimentações no mesmo lugar", "Pix, pagamentos e comprovantes acessíveis"]} />
     <AccountVisualFeatures />
     <CampaignBanner image="/images/conta-lifestyle.png" alt="Cliente usando o celular em uma sala iluminada" eyebrow="DINHEIRO NA VIDA REAL" title={<>Sua rotina muda.<br />Sua conta acompanha.</>} text="Da casa ao trabalho, uma experiência construída para estar presente sem ocupar espaço demais." cta="Conhecer a experiência" />
     <StepsSection title="Da abertura ao primeiro movimento." steps={[["01", "Conheça", "Veja os recursos e as condições disponíveis."], ["02", "Cadastre", "Informe seus dados em um fluxo guiado."], ["03", "Comece", "Acesse a experiência e organize sua rotina."]]} />
     <AppSplit />
     <InfoBand icon={BadgeCheck} title="Clareza antes de confirmar." text="Informações, condições e autorizações apresentadas no momento certo da jornada." />
     <FaqSection title="Dúvidas sobre a conta" items={homeFaqs.slice(0, 3)} />
-    <ClosingCTA />
+    <ClosingCTA kicker="CONTA CREDMAISPAY" title="Mais clareza." accent="para o seu dia." text="Tenha o essencial por perto e acompanhe sua vida financeira com mais tranquilidade." cta="Conhecer a conta" to="/conta" />
   </>;
 }
 
@@ -437,14 +441,14 @@ function LoanPage() {
     <ProductRibbon tone="gold" items={["Microcrédito pessoal", "Para quem trabalha", "Para quem empreende", "Pix para movimentar"]} />
     <section className="loan-audience section" id="perfis"><div className="loan-audience-heading"><SectionHeading kicker="UM CRÉDITO MAIS PRÓXIMO" title={<>Seu trabalho tem ritmo.<br /><em>Seu crédito acompanha.</em></>} text="" /><LoanAudienceMessage /></div><div className="loan-audience-grid"><article className="loan-audience-mockup"><div className="loan-mockup-visual"><img src="/images/microcredit-clt-card-v2.png" alt="Profissional CLT consultando o celular" width="1024" height="1536" loading="lazy" /></div><div className="loan-mockup-copy"><span>01 — CLT</span><h3>Para organizar a vida</h3><p>Uma possibilidade para cuidar de uma emergência ou tirar um plano do papel.</p><Link to="/ajuda#contato">Conhecer possibilidades <ArrowRight size={17} /></Link></div></article><article className="loan-audience-mockup"><div className="loan-mockup-visual"><img src="/images/microcredit-cpf-card-v2.png" alt="Trabalhador autônomo usando o celular" width="1024" height="1536" loading="lazy" /></div><div className="loan-mockup-copy"><span>02 — CPF</span><h3>Para quem trabalha por conta</h3><p>Crédito para diferentes momentos, sempre apresentado com condições e análise.</p><Link to="/ajuda#contato">Ver como funciona <ArrowRight size={17} /></Link></div></article><article className="loan-audience-mockup"><div className="loan-mockup-visual"><img src="/images/microcredit-cnpj-card-v2.png" alt="Empreendedora organizando seu negócio" width="1024" height="1536" loading="lazy" /></div><div className="loan-mockup-copy"><span>03 — CNPJ</span><h3>Para fazer o negócio girar</h3><p>Mais recurso para estoque, ferramenta ou uma decisão importante da operação.</p><Link to="/ajuda#contato">Falar com a equipe <ArrowRight size={17} /></Link></div></article><article className="loan-audience-mockup"><div className="loan-mockup-visual"><img src="/images/microcredit-app-card-v2.png" alt="Trabalhadora de aplicativo com celular e capacete" width="1024" height="1536" loading="lazy" /></div><div className="loan-mockup-copy"><span>04 — APP</span><h3>Para manter o ritmo</h3><p>Uma alternativa para quem entrega, dirige ou presta serviço.</p><Link to="/ajuda#contato">Tenho interesse <ArrowRight size={17} /></Link></div></article></div></section>
     <section className="loan-simulation" id="como-funciona"><div className="loan-simulation-copy"><p className="eyebrow light"><span /> SIMULE COM CLAREZA</p><h2>Você escolhe o objetivo.<br /><em>A gente mostra o caminho.</em></h2><p>Comece informando quanto precisa e conheça as possibilidades disponíveis para o seu perfil. Sem promessa de aprovação: tudo passa por análise.</p><ul><li><Check /> Solicitação pelo digital</li><li><Check /> Condições antes da confirmação</li><li><Check /> Acompanhamento do pedido</li></ul><Link className="button button-light" to="/ajuda#contato">Quero simular <ArrowRight size={18} /></Link></div><div className="loan-simulation-visual"><img src="/images/personal-credit-mockup-v1.png" alt="Mockup da simulação de crédito no aplicativo CredMaisPay" width="1024" height="1536" loading="lazy" /><div className="loan-rate"><span>Parcela estimada</span><strong>R$ 607,48</strong><small>Exemplo ilustrativo</small></div></div></section>
-    <FeatureIntro number="01" kicker="CRÉDITO QUE SE EXPLICA" title="Antes de contratar, você entende." text="A jornada apresenta o valor, o prazo, as condições e os próximos passos para você decidir com mais segurança." image="/images/microcredit-understand-banner-v2.png" alt="Empreendedora analisando valor, prazo e condições de um microcrédito no celular" benefits={["Informação em cada etapa", "Decisão no seu tempo"]} dark />
+    <FeatureIntro number="01" kicker="CRÉDITO QUE SE EXPLICA" title="Antes de contratar, você entende." text="A jornada apresenta o valor, o prazo, as condições e os próximos passos para você decidir com mais segurança." image="/images/microcredit-understand-banner-v3.png" alt="Mulher analisando valor, prazo e condições de um microcrédito" benefits={["Informação em cada etapa", "Decisão no seu tempo"]} dark />
     <section className="loan-story"><div className="loan-story-media"><img src="/images/microcredit-simulation-story-v1.png" alt="Pessoa simulando um empréstimo pelo celular" width="1672" height="941" loading="lazy" /></div><div className="loan-story-copy"><p className="eyebrow dark"><span /> MAIS CRÉDITO, MAIS OPORTUNIDADE</p><h2>O próximo passo pode começar pequeno.</h2><p>Microcrédito também é ferramenta: pode ajudar a repor materiais, cobrir uma conta importante ou investir no que faz sua renda acontecer.</p><div className="loan-story-points"><span><Banknote /><b>Fôlego</b><small>para o agora</small></span><span><TrendingUp /><b>Movimento</b><small>para continuar</small></span><span><Zap /><b>Oportunidade</b><small>para avançar</small></span></div><Link className="button button-dark" to="/ajuda#contato">Conversar sobre crédito <ArrowRight size={18} /></Link></div></section>
     <BentoFeatures items={[[QrCode, "Pix para movimentar", "Use sua conta para enviar, receber e organizar o dinheiro do dia a dia.", "blue"], [Banknote, "Crédito para o momento", "Conheça possibilidades de microcrédito de acordo com sua necessidade.", "gold"], [ReceiptText, "Tudo mais claro", "Veja informações e condições antes de confirmar qualquer etapa.", "mint"], [ShieldCheck, "Segurança na jornada", "Dados protegidos e acompanhamento durante a solicitação.", "coral"]]} />
     <CampaignBanner image="/images/campaign-business-story.png" alt="Pessoa conferindo uma movimentação financeira no celular" eyebrow="SEM BUROCRACIA DESNECESSÁRIA" title={<>Mais crédito para<br /><em>mais possibilidades.</em></>} text="Conta, Pix e microcrédito em uma experiência feita para quem precisa fazer a vida andar." cta="Quero conhecer" to="/ajuda#contato" tone="blue" reverse />
     <StepsSection title="Da intenção à resposta, em poucos passos." steps={[["01", "Conte seu momento", "Informe seu perfil, sua renda e o que você precisa realizar."], ["02", "Conheça as condições", "Veja as possibilidades apresentadas para sua análise."], ["03", "Acompanhe a jornada", "Receba orientação e acompanhe os próximos passos pelo digital."]]} />
     <InfoBand icon={HeartHandshake} title="Crédito com conversa clara." text="A CredMaisPay aproxima possibilidades de quem trabalha e empreende, respeitando análise, condições e disponibilidade." />
     <FaqSection title="Dúvidas sobre microcrédito" items={[["Quem pode solicitar?", "A disponibilidade pode considerar pessoas com CPF, trabalhadores CLT, autônomos, trabalhadores de aplicativo e empresas com CNPJ. A elegibilidade será informada durante a análise."], ["O crédito é aprovado na hora?", "Não. Toda solicitação está sujeita à análise, aprovação, condições e disponibilidade do produto."], ["Posso usar o crédito para o meu negócio?", "Sim. Pessoas empreendedoras podem indicar objetivos como estoque, ferramenta, capital de giro ou outros planos, sempre conforme a análise."], ["A CredMaisPay oferece cartão?", "Não. A plataforma é focada em conta, Pix e possibilidades de microcrédito."]]} />
-    <ClosingCTA />
+    <ClosingCTA kicker="CRÉDITO PARA O SEU MOMENTO" title="Seu plano pede." accent="fôlego para avançar." text="Conheça possibilidades de microcrédito com informação clara antes de decidir." cta="Ver possibilidades" to="/ajuda#contato" />
   </div>;
 }
 
@@ -455,8 +459,9 @@ function AccountOpeningPage() {
     mm.add({ desktop: "(min-width: 861px)", reduce: "(prefers-reduced-motion: reduce)" }, ({ conditions }) => {
       if (conditions.reduce) return;
       gsap.from(".business-hero-copy > *", { opacity: 0, y: 42, duration: .85, stagger: .09, ease: "power3.out", delay: .12 });
-      gsap.from(".business-hero-picture", { opacity: 0, scale: 1.04, duration: 1.15, ease: "power3.out" });
-      gsap.to(".business-hero-picture img", { yPercent: 5, scale: 1.04, ease: "none", scrollTrigger: { trigger: ".business-hero", start: "top top", end: "bottom top", scrub: true } });
+      // Keep the supplied campaign artwork fully visible: scaling it during
+      // the entrance/parallax animation was cropping the edges of the hero.
+      gsap.from(".business-hero-picture", { opacity: 0, duration: 1.15, ease: "power3.out" });
       gsap.from(".business-number", { opacity: 0, y: 34, stagger: .12, duration: .75, ease: "power2.out", scrollTrigger: { trigger: ".business-numbers", start: "top 82%" } });
       gsap.from(".business-start-mockup", { opacity: 0, y: 80, rotate: -4, scale: .9, stagger: .14, duration: 1, ease: "power3.out", scrollTrigger: { trigger: ".business-start", start: "top 72%" } });
     });
@@ -470,7 +475,6 @@ function AccountOpeningPage() {
         <p className="eyebrow light"><span /> CONTA CREDMAISPAY</p>
         <h1>Sua conta.<br /><em>Seu próximo passo.</em></h1>
         <p>Abra sua conta pelo celular e tenha Pix, pagamentos e possibilidades de microcrédito para cuidar da sua vida financeira.</p>
-        <div className="business-hero-actions"><MagneticLink className="button button-gold" to="/ajuda#contato">Abrir minha conta <ArrowRight size={18} /></MagneticLink><Link className="business-video-link" to="#recursos"><span><ArrowRight /></span> Conhecer a conta</Link></div>
         <small>Crédito sujeito à análise e aprovação.</small>
       </div>
       <div className="business-hero-proof"><b><Sparkles /> Feita para sua rotina</b><span>Conta • Pix • microcrédito</span></div>
@@ -488,17 +492,17 @@ function AccountOpeningPage() {
     <AccountJourney />
 
     <section className="business-credit">
-      <img src="/images/personal-credit-mockup-v1.png" alt="Aplicativo CredMaisPay exibindo uma simulação de crédito pessoal" width="1024" height="1536" loading="lazy" />
+      <img src="/images/account-credit-mockup-v2.png" alt="Aplicativo CredMaisPay com recursos para organizar crédito e planos" width="1536" height="1536" loading="lazy" />
       <Reveal className="business-credit-copy"><p className="eyebrow dark"><span /> CRÉDITO PARA SEUS PLANOS</p><h2>Seu próximo passo pode ganhar <em>fôlego.</em></h2><p>Conheça possibilidades para uma compra importante, uma emergência ou um projeto pessoal, com condições apresentadas antes da confirmação.</p><ul><li><Check /> Solicitação digital</li><li><Check /> Análise para o seu perfil</li><li><Check /> Taxas e condições com clareza</li></ul><Link className="button button-dark" to="/ajuda#contato">Quero conhecer <ArrowRight size={18} /></Link><small>Crédito sujeito à análise e aprovação.</small></Reveal>
     </section>
 
     <section className="business-profiles section"><SectionHeading kicker="PARA OS SEUS MOMENTOS" title={<>Uma conta.<br /><em>Muitos planos pela frente.</em></>} text="Recursos para acompanhar o cotidiano, organizar escolhas e construir o próximo passo." /><div className="business-profile-grid"><BusinessProfile image="/images/hero-credmaispay.png" label="Dia a dia" text="Pix, pagamentos e controle na palma da mão." /><BusinessProfile image="/images/campaign-ajuda-v2.png" label="Atendimento" text="Orientação clara sempre que você precisar." /><BusinessProfile image="/images/campaign-seguranca-v2.png" label="Planos" text="Informação para decidir junto e avançar." /></div></section>
 
-    <section className="business-start section" id="business-start"><Reveal><p className="eyebrow light"><span /> COMEÇAR É SIMPLES</p><h2>Do cadastro à sua conta pronta para usar.</h2></Reveal><div className="business-start-mockups"><article className="business-start-mockup"><div className="mockup-visual"><img src="/images/account-register-mockup-v1.png" alt="Celular apresentando o início do cadastro CredMaisPay" width="1024" height="1536" loading="lazy" /></div><footer><b>01</b><div><h3>Informe seus dados</h3><p>Comece com seu CPF e suas informações pessoais.</p></div></footer></article><article className="business-start-mockup"><div className="mockup-visual"><img src="/images/account-identity-mockup-v1.png" alt="Celular apresentando a confirmação de identidade" width="1024" height="1536" loading="lazy" /></div><footer><b>02</b><div><h3>Confirme sua identidade</h3><p>Siga as etapas de segurança apresentadas na tela.</p></div></footer></article><article className="business-start-mockup"><div className="mockup-visual"><img src="/images/account-ready-mockup-v1.png" alt="Aplicativo CredMaisPay confirmando que a conta está pronta" width="1024" height="1536" loading="lazy" /></div><footer><b>03</b><div><h3>Comece a usar</h3><p>Acompanhe sua conta e encontre os recursos disponíveis.</p></div></footer></article></div><Reveal className="business-start-action"><Link className="button button-gold" to="/ajuda#contato">Abrir minha conta <ArrowRight size={18} /></Link></Reveal></section>
+    <section className="business-start section" id="business-start"><Reveal><p className="eyebrow light"><span /> COMEÇAR É SIMPLES</p><h2>Do cadastro à sua conta pronta para usar.</h2></Reveal><div className="business-start-mockups"><article className="business-start-mockup"><div className="mockup-visual"><img src="/images/account-register-mockup-v2.png" alt="Celular apresentando o início do cadastro CredMaisPay" width="1536" height="1024" loading="lazy" /></div><footer><b>01</b><div><h3>Informe seus dados</h3><p>Comece com seu CPF e suas informações pessoais.</p></div></footer></article><article className="business-start-mockup"><div className="mockup-visual"><img src="/images/account-identity-mockup-v2.png" alt="Celular apresentando a confirmação de identidade" width="1536" height="1024" loading="lazy" /></div><footer><b>02</b><div><h3>Confirme sua identidade</h3><p>Siga as etapas de segurança apresentadas na tela.</p></div></footer></article><article className="business-start-mockup"><div className="mockup-visual"><img src="/images/account-ready-mockup-v2.png" alt="Aplicativo CredMaisPay confirmando que a conta está pronta" width="1536" height="1024" loading="lazy" /></div><footer><b>03</b><div><h3>Comece a usar</h3><p>Acompanhe sua conta e encontre os recursos disponíveis.</p></div></footer></article></div><Reveal className="business-start-action"><Link className="button button-gold" to="/ajuda#contato">Abrir minha conta <ArrowRight size={18} /></Link></Reveal></section>
 
     <InfoBand icon={HeartHandshake} title="Atendimento para começar com segurança." text="Orientação direta para tirar dúvidas sobre cadastro, acesso e os recursos da sua conta." />
     <FaqSection title="Dúvidas sobre a abertura da conta" items={[["Quem pode abrir uma conta?", "Pessoas físicas podem registrar interesse. Os requisitos de elegibilidade e a disponibilidade serão informados durante o cadastro."], ["Quais dados são necessários?", "A jornada pode solicitar CPF, dados pessoais e etapas de confirmação de identidade para manter o processo seguro."], ["A abertura da conta tem custo?", "Eventuais tarifas, condições e características do produto serão apresentadas com clareza antes de qualquer confirmação."], ["Quando posso começar a usar?", "Após a análise e aprovação do cadastro, os recursos disponíveis serão apresentados no ambiente digital CredMaisPay."]]} />
-    <ClosingCTA />
+    <ClosingCTA kicker="COMECE PELO DIGITAL" title="Sua conta começa." accent="com poucos passos." text="Cadastre seu interesse e descubra uma experiência feita para acompanhar sua rotina." cta="Começar cadastro" to="/abrir-conta" />
   </div>;
 }
 
@@ -514,7 +518,7 @@ function AccountJourney() {
     return () => mm.revert();
   }, { scope: ref });
   const items = [
-    [QrCode, "01", "Faça Pix", "Envie, receba e consulte seus movimentos em poucos passos.", "/images/business-first-payment-transparent-v1.png"],
+    [QrCode, "01", "Faça Pix", "Envie, receba e consulte seus movimentos em poucos passos.", "/images/business-first-payment-transparent-v2.png"],
     [ReceiptText, "02", "Pague contas", "Pagamentos e comprovantes reunidos para consultar quando precisar.", "/images/business-organize-transparent-v1.png"],
     [BellRing, "03", "Acompanhe", "Alertas objetivos para reconhecer cada movimento e agir rápido.", "/images/business-track-transparent-v1.png"],
     [PiggyBank, "04", "Organize planos", "Metas visíveis para acompanhar o que importa e preparar o próximo passo.", "/images/business-plan-transparent-v1.png"],
@@ -528,20 +532,28 @@ function BusinessProfile({ image, label, text }) {
 
 function SecurityPage() {
   return <>
-    <PageHero kicker="SEGURANÇA CREDMAISPAY" title="Proteção forte. " accent="Informação clara." text="Tecnologia, autonomia e comunicação para ajudar você a reconhecer e proteger cada movimento." image="/images/campaign-seguranca-v3.png" alt="Casal conferindo informações com segurança no celular" tone="mint" />
+    <section className="security-editorial-hero">
+      <div className="security-editorial-art"><img src="/images/security-hero-editorial-v2.png" alt="Pessoa usando o celular em um ambiente azul e acolhedor" width="1877" height="838" fetchpriority="high" /></div>
+      <div className="security-editorial-copy">
+        <p className="eyebrow dark"><span /> SEGURANÇA CREDMAISPAY</p>
+        <h1>Proteção forte.<br /><em>Informação clara.</em></h1>
+        <p>Tecnologia, autonomia e comunicação para ajudar você a reconhecer e proteger cada movimento.</p>
+        <Link className="button button-dark" to="/ajuda">Ver orientações <ArrowRight size={18} /></Link>
+      </div>
+    </section>
     <ProductRibbon tone="mint" items={["Acesso protegido", "Alertas contextuais", "Autonomia no app", "Orientação direta"]} />
-    <FeatureIntro number="01" kicker="CAMADAS DE PROTEÇÃO" title="Segurança que trabalha junto com você." text="Recursos de autenticação, alertas e monitoramento compõem uma experiência feita para prevenir e informar." image="/images/security-guidance-v1.png" alt="Cliente recebendo orientação para conferir uma notificação financeira" benefits={["Alertas para reconhecer movimentações", "Controles disponíveis no ambiente digital"]} dark />
+    <FeatureIntro number="01" kicker="CAMADAS DE PROTEÇÃO" title="Segurança que trabalha junto com você." text="Recursos de autenticação, alertas e monitoramento compõem uma experiência feita para prevenir e informar." image="/images/security-guidance-v3.png" alt="Mulher usando o celular em um ambiente azul de segurança" benefits={["Alertas para reconhecer movimentações", "Controles disponíveis no ambiente digital"]} dark />
     <BentoFeatures items={[
-      [Fingerprint, "Confirmação de identidade", "Ações importantes pedem a confirmação certa.", "blue"],
-      [BellRing, "Alertas contextuais", "Informação rápida quando uma movimentação acontece.", "gold"],
-      [LockKeyhole, "Controle de acesso", "Gerencie acesso e recursos de segurança pelo ambiente digital.", "mint"],
-      [MessageCircle, "Comunicação direta", "Orientações objetivas para situações que exigem atenção.", "coral"],
+      [Fingerprint, "Confirmação de identidade", "Ações importantes pedem a confirmação certa.", "blue", "/images/security-card-01.png"],
+      [BellRing, "Alertas contextuais", "Informação rápida quando uma movimentação acontece.", "gold", "/images/security-card-02.png"],
+      [LockKeyhole, "Controle de acesso", "Gerencie acesso e recursos de segurança pelo ambiente digital.", "mint", "/images/security-card-03.png"],
+      [MessageCircle, "Comunicação direta", "Orientações objetivas para situações que exigem atenção.", "coral", "/images/security-card-04.png"],
     ]} />
-    <CampaignBanner image="/images/seguranca-banner.png" alt="Mãe e filha conferindo juntas uma informação no celular" eyebrow="SEGURANÇA TAMBÉM É PROXIMIDADE" title={<>Informação que chega.<br />Cuidado que permanece.</>} text="A proteção fica mais forte quando você entende o que está acontecendo e sabe qual é o próximo passo." cta="Ver orientações" to="/ajuda" tone="mint" reverse />
+    <CampaignBanner image="/images/seguranca-banner-v2.png" alt="Mulher usando o celular em um ambiente azul e branco" eyebrow="SEGURANÇA TAMBÉM É PROXIMIDADE" title={<>Informação que chega.<br />Cuidado que permanece.</>} text="A proteção fica mais forte quando você entende o que está acontecendo e sabe qual é o próximo passo." cta="Ver orientações" to="/ajuda" tone="mint" reverse />
     <section className="section safety-guide"><Reveal><p className="eyebrow dark"><span /> PAUSA QUE PROTEGE</p><h2>Desconfie. Confira. Só então confirme.</h2></Reveal><div className="safety-grid"><article><b>01</b><h3>Nunca compartilhe códigos</h3><p>Senhas e códigos de confirmação são pessoais.</p></article><article><b>02</b><h3>Confira o destino</h3><p>Revise nomes e valores antes de concluir.</p></article><article><b>03</b><h3>Use canais oficiais</h3><p>Em dúvida, pare a ação e procure ajuda.</p></article></div></section>
     <InfoBand icon={LockKeyhole} title="Cuidado também é autonomia." text="Quanto mais clara a informação, mais segura pode ser a sua decisão." />
     <FaqSection title="Perguntas de segurança" items={[["A CredMaisPay pede minha senha por mensagem?", "Não compartilhe senhas ou códigos por mensagens. Canais legítimos não devem solicitar suas credenciais completas."], ["O que fazer diante de uma movimentação desconhecida?", "Use os controles disponíveis e procure imediatamente o canal de atendimento apresentado no ambiente oficial."], ["Como identificar um contato confiável?", "Acesse sempre o site ou aplicativo diretamente, sem usar links recebidos de origem desconhecida."]]} />
-    <ClosingCTA />
+    <ClosingCTA kicker="SEGURANÇA CREDMAISPAY" title="Proteção para seguir." accent="com autonomia." text="Informação clara e recursos para você reconhecer cada movimento com confiança." cta="Ver orientações" to="/ajuda" />
   </>;
 }
 
@@ -552,8 +564,54 @@ function HelpPage() {
     <CampaignBanner image="/images/ajuda-atendimento.png" alt="Especialista de atendimento conversando com uma cliente" eyebrow="GENTE QUE ESCUTA" title={<>Atendimento claro.<br />Próximo passo simples.</>} text="Comece pelo assunto e encontre a orientação certa para continuar com segurança." cta="Falar com a equipe" to="#contato" tone="blue" />
     <section className="section contact-panel" id="contato"><Reveal><p className="eyebrow dark"><span /> FALE COM A CREDMAISPAY</p><h2>Conte o que você precisa.</h2><p>Como os canais oficiais ainda serão confirmados, este formulário funciona como uma prévia visual e não envia dados.</p></Reveal><ContactForm /></section>
     <FaqSection title="Respostas rápidas" items={homeFaqs} />
-    <ClosingCTA />
+    <ClosingCTA kicker="CENTRAL DE AJUDA" title="Encontre o caminho." accent="para resolver." text="Comece pelo assunto e receba orientação para dar o próximo passo." cta="Falar com atendimento" to="#contato" />
   </>;
+}
+
+const blogArticles = [
+  { slug: "pix-sem-complicacao", category: "Pix", readTime: "5 min", title: "Pix sem complicação: um guia para a rotina", excerpt: "Como enviar, receber e conferir um Pix com mais clareza antes de confirmar.", image: "/images/blog/blog-01.png", accent: "blue" },
+  { slug: "seguranca-no-dia-a-dia", category: "Segurança", readTime: "6 min", title: "Segurança no dia a dia começa nos detalhes", excerpt: "Hábitos simples para reconhecer alertas, proteger seus acessos e agir com calma.", image: "/images/blog/blog-02.png", accent: "navy" },
+  { slug: "emprestimo-com-planejamento", category: "Crédito", readTime: "7 min", title: "Empréstimo com planejamento: o que avaliar", excerpt: "Entenda valor, prazo, parcelas e o impacto de uma decisão de crédito no orçamento.", image: "/images/blog/blog-03.png", accent: "lime" },
+  { slug: "conta-digital-na-vida-real", category: "Conta", readTime: "4 min", title: "Conta digital na vida real: menos procura, mais visão", excerpt: "Como reunir saldo, pagamentos e comprovantes em uma leitura mais organizada.", image: "/images/blog/blog-04.png", accent: "blue" },
+  { slug: "pix-para-pequenos-negocios", category: "Para negócios", readTime: "5 min", title: "Pix para pequenos negócios: organização que ajuda", excerpt: "Boas práticas para acompanhar recebimentos e manter o caixa mais previsível.", image: "/images/blog/blog-05.png", accent: "navy" },
+  { slug: "quem-e-a-credmaispay", category: "CredMaisPay", readTime: "4 min", title: "CredMaisPay: uma experiência mais próxima", excerpt: "Nossa visão para tornar produtos financeiros mais diretos, úteis e transparentes.", image: "/images/blog/blog-06.png", accent: "lime" },
+  { slug: "comprovantes-e-organizacao", category: "Conta", readTime: "4 min", title: "Comprovantes: como guardar o que importa", excerpt: "Uma rotina simples para encontrar pagamentos e movimentações quando precisar.", image: "/images/blog/blog-07.png", accent: "blue" },
+  { slug: "alertas-que-protegem", category: "Segurança", readTime: "5 min", title: "Alertas que protegem: leia antes de agir", excerpt: "Aprenda a diferenciar uma notificação útil de um pedido suspeito.", image: "/images/blog/blog-08.png", accent: "navy" },
+  { slug: "credito-para-seus-planos", category: "Crédito", readTime: "6 min", title: "Crédito para seus planos, com informação", excerpt: "Perguntas importantes para fazer antes de contratar qualquer solução.", image: "/images/blog/blog-09.png", accent: "lime" },
+  { slug: "primeiros-passos-na-conta", category: "Conta", readTime: "3 min", title: "Primeiros passos para aproveitar sua conta", excerpt: "Um roteiro curto para conhecer os recursos que fazem sentido para você.", image: "/images/blog/blog-10.png", accent: "blue" },
+];
+
+const articleBodies = {
+  "pix-sem-complicacao": { intro: "O Pix faz parte da rotina de milhões de pessoas porque transforma uma transferência em poucos passos. A praticidade fica ainda melhor quando cada etapa é conferida com atenção.", sections: [["Antes de confirmar", "Confira o nome de quem vai receber, o valor e a instituição exibidos na tela. Se algo não fizer sentido, interrompa a operação e procure o canal oficial da sua instituição."], ["Depois do envio", "Guarde o comprovante e acompanhe a movimentação no histórico. Em caso de dúvida, não compartilhe códigos ou senhas com terceiros."], ["Uma rotina mais simples", "Use favoritos apenas para contatos que você reconhece e mantenha as notificações ativas para identificar movimentações rapidamente."]] },
+  "seguranca-no-dia-a-dia": { intro: "Segurança digital não depende de uma única ferramenta. Ela é construída por camadas: senha, dispositivo, alertas, informação e uma atitude cuidadosa diante de pedidos inesperados.", sections: [["Desconfie da urgência", "Mensagens que pressionam você a agir imediatamente merecem uma pausa. Bancos e instituições não pedem senhas, códigos de autenticação ou transferências para liberar atendimento."], ["Acesse pelos caminhos oficiais", "Digite o endereço no navegador ou use o aplicativo oficial. Evite links recebidos por mensagens e confira o remetente antes de continuar."], ["Se algo acontecer", "Bloqueie o acesso, registre o horário e procure o atendimento oficial. Quanto mais cedo a equipe souber, mais rápido poderá orientar os próximos passos."]] },
+  "emprestimo-com-planejamento": { intro: "Crédito pode ajudar em um projeto ou em um momento específico, mas a decisão precisa caber na vida real. A melhor comparação começa antes da contratação.", sections: [["Olhe o custo total", "Além da parcela, avalie o custo efetivo total, as tarifas e as condições apresentadas. Uma parcela menor pode significar um prazo mais longo."], ["Faça um cenário", "Liste renda, despesas fixas e compromissos já assumidos. Simule como a nova parcela se comportaria em um mês mais apertado."], ["Decida no seu tempo", "Leia as condições, tire dúvidas e só avance quando entender valor, prazo e consequências. Crédito sujeito a análise e aprovação."]] },
+  "conta-digital-na-vida-real": { intro: "Uma boa conta digital não precisa colocar tudo na tela ao mesmo tempo. Ela deve destacar o que ajuda você a decidir e deixar o restante acessível quando necessário.", sections: [["Uma visão do dia", "Saldo, entradas e saídas reunidos no mesmo lugar ajudam a entender o momento sem procurar em várias telas."], ["Comprovantes por perto", "Encontrar um pagamento depois é tão importante quanto realizar a operação. Organize o histórico e confira os detalhes sempre que precisar."], ["Recursos que acompanham", "Pix, pagamentos e alertas fazem mais sentido quando estão conectados à sua rotina, e não quando criam mais uma tarefa."]] },
+  "pix-para-pequenos-negocios": { intro: "Para quem vende, presta serviço ou trabalha por conta própria, o Pix pode simplificar o recebimento e melhorar a leitura do caixa.", sections: [["Separe as entradas", "Mantenha os recebimentos do negócio identificados e evite misturar informações sem necessidade. Isso facilita a conferência no fim do dia."], ["Confira antes de entregar", "A confirmação deve aparecer no histórico ou no comprovante da instituição. Não considere apenas uma tela enviada pelo cliente."], ["Crie uma rotina", "Reserve alguns minutos para conferir recebimentos, devoluções e pagamentos. Pequenos hábitos reduzem a chance de erro."]] },
+  "quem-e-a-credmaispay": { intro: "A CredMaisPay nasceu para aproximar tecnologia financeira e vida real. Isso significa explicar melhor, deixar os próximos passos visíveis e respeitar o tempo de cada pessoa.", sections: [["Clareza como ponto de partida", "Conta, Pix, pagamentos e possibilidades de crédito precisam vir acompanhados de informação compreensível."], ["Digital, mas próxima", "Uma experiência digital não elimina a necessidade de atendimento. Ela deve abrir caminhos simples para encontrar orientação quando surgir uma dúvida."], ["Responsabilidade", "Condições, disponibilidade e elegibilidade variam por produto. A contratação acontece somente depois da análise e da confirmação das informações."]] },
+};
+
+function BlogPage() {
+  const [filter, setFilter] = useState("Todos");
+  const categories = ["Todos", "Pix", "Segurança", "Crédito", "Conta", "CredMaisPay"];
+  const visible = filter === "Todos" ? blogArticles : blogArticles.filter((article) => article.category.includes(filter));
+  return <div className="blog-page">
+    <section className="blog-hero">
+      <div className="blog-hero-copy"><p className="eyebrow light"><span /> IDEIAS PARA A VIDA REAL</p><h1>Mais clareza.<br /><em>Mais autonomia.</em></h1><p>Conteúdos para cuidar do seu dinheiro, usar o Pix com segurança e entender possibilidades de crédito no seu ritmo.</p><div className="blog-hero-meta"><span>10 artigos para começar</span><span>Atualizado pela CredMaisPay</span></div></div>
+      <div className="blog-hero-art"><img src="/images/blog/blog-06.png" alt="Pessoa usando o celular em uma composição azul CredMaisPay" /></div>
+    </section>
+    <section className="blog-index section"><div className="section-heading"><div><p className="eyebrow dark"><span /> CENTRAL DE CONTEÚDO</p><h2>Escolha um assunto<br /><em>e siga em frente.</em></h2></div><p>Informação direta para decisões mais tranquilas — sem promessas fáceis e sem complicar o que pode ser simples.</p></div>
+      <div className="blog-filters" role="tablist" aria-label="Filtrar artigos">{categories.map((category) => <button type="button" className={filter === category ? "is-active" : ""} onClick={() => setFilter(category)} key={category}>{category}</button>)}</div>
+      <div className="blog-grid">{visible.map((article, index) => <article className={`blog-card blog-card-${article.accent}`} key={article.slug}><Link to={`/blog/${article.slug}`}><div className="blog-card-image"><img src={article.image} alt="" loading={index > 2 ? "lazy" : "eager"} /><span>{article.category}</span></div><div className="blog-card-body"><div className="blog-card-meta"><span>Leitura de {article.readTime}</span><ArrowRight size={17} /></div><h3>{article.title}</h3><p>{article.excerpt}</p><span className="blog-read">Ler artigo</span></div></Link></article>)}</div>
+    </section>
+    <section className="blog-newsletter"><div><p className="eyebrow light"><span /> PARA A SUA ROTINA</p><h2>Informação que chega<br /><em>na hora certa.</em></h2></div><div><p>Novos conteúdos sobre conta, Pix, segurança e crédito, com linguagem clara e sem excesso de promessa.</p><Link className="button button-gold" to="/ajuda#contato">Falar com a gente <ArrowRight size={17} /></Link></div></section>
+  </div>;
+}
+
+function BlogArticlePage() {
+  const { slug } = useParams();
+  const article = blogArticles.find((item) => item.slug === slug) || blogArticles[0];
+  const body = articleBodies[article.slug] || articleBodies["quem-e-a-credmaispay"];
+  return <div className="blog-article-page"><section className="blog-article-hero"><div><Link className="blog-back" to="/blog">← Voltar para o blog</Link><p className="eyebrow light"><span /> {article.category.toUpperCase()}</p><h1>{article.title}</h1><p className="blog-article-lead">{body.intro}</p><span className="blog-article-time">Leitura de {article.readTime} · CredMaisPay</span></div><img src={article.image} alt="" /></section><article className="blog-article-body"><div className="blog-article-content"><p className="blog-article-intro">{body.intro}</p>{body.sections.map(([heading, text]) => <section key={heading}><h2>{heading}</h2><p>{text}</p></section>)}<div className="blog-article-note"><ShieldCheck /><span><b>Informação responsável</b><small>Condições, disponibilidade e aprovação variam por produto. Consulte os canais oficiais.</small></span></div></div><aside><p className="eyebrow dark"><span /> CONTINUE LENDO</p>{blogArticles.filter((item) => item.slug !== article.slug).slice(0, 3).map((item) => <Link to={`/blog/${item.slug}`} key={item.slug}><img src={item.image} alt="" /><span>{item.category}</span><b>{item.title}</b></Link>)}</aside></article></div>;
 }
 
 function LoginPage() {
@@ -597,7 +655,7 @@ function FeatureIntro({ number, kicker, title, text, image, alt, benefits = [], 
 }
 
 function BentoFeatures({ items }) {
-  return <section className="section bento-grid">{items.map(([Icon, title, text, color], index) => <Reveal className={`bento-card ${color} bento-${index + 1}`} key={title} delay={index * 0.06}><div className="bento-icon"><Icon /></div><span>0{index + 1}</span><h3>{title}</h3><p>{text}</p>{index === 0 ? <div className="bento-signal"><i /><i /><i /><i /></div> : null}</Reveal>)}</section>;
+  return <section className="section bento-grid">{items.map(([Icon, title, text, color, image], index) => <Reveal className={`bento-card ${color} bento-${index + 1}`} key={title} delay={index * 0.06}><div className="bento-icon"><Icon /></div>{image ? <img className="bento-mockup" src={image} alt="" aria-hidden="true" loading="lazy" /> : null}<span>0{index + 1}</span><h3>{title}</h3><p>{text}</p>{index === 0 ? <div className="bento-signal"><i /><i /><i /><i /></div> : null}</Reveal>)}</section>;
 }
 
 function AccountVisualFeatures() {

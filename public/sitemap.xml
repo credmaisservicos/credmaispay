@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://credmaispay.com/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://credmaispay.com/conta</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://credmaispay.com/emprestimos</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://credmaispay.com/abrir-conta</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://credmaispay.com/seguranca</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://credmaispay.com/ajuda</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://credmaispay.com/</loc><priority>1.0</priority></url>
+  <url><loc>https://credmaispay.com/conta</loc><priority>0.8</priority></url>
+  <url><loc>https://credmaispay.com/emprestimos</loc><priority>0.8</priority></url>
+  <url><loc>https://credmaispay.com/abrir-conta</loc><priority>0.8</priority></url>
+  <url><loc>https://credmaispay.com/seguranca</loc><priority>0.8</priority></url>
+  <url><loc>https://credmaispay.com/ajuda</loc><priority>0.7</priority></url>
+  <url><loc>https://credmaispay.com/blog</loc><priority>0.9</priority></url>
+  <url><loc>https://credmaispay.com/blog/pix-sem-complicacao</loc><priority>0.7</priority></url>
+  <url><loc>https://credmaispay.com/blog/seguranca-no-dia-a-dia</loc><priority>0.7</priority></url>
+  <url><loc>https://credmaispay.com/blog/emprestimo-com-planejamento</loc><priority>0.7</priority></url>
+  <url><loc>https://credmaispay.com/blog/conta-digital-na-vida-real</loc><priority>0.7</priority></url>
+  <url><loc>https://credmaispay.com/blog/pix-para-pequenos-negocios</loc><priority>0.7</priority></url>
+  <url><loc>https://credmaispay.com/blog/quem-e-a-credmaispay</loc><priority>0.7</priority></url>
 </urlset>
