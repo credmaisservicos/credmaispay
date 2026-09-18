@@ -1,0 +1,6 @@
+node_modules/
+dist/
+qa-output/
+tmp/
+.vite*.log
+*.log
