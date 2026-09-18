@@ -1058,3 +1058,51 @@ p { line-height: 1.65; }
 .page-hero-account .page-hero-image img {
   object-fit: cover !important;
 }
+
+/* Final viewport-fit pass: the account campaign must own the complete
+   viewport width. This prevents a white gutter when the page is rendered
+   inside a constrained layout or with a vertical scrollbar. */
+.page-hero-account {
+  width: 100vw;
+  max-width: none;
+  margin-inline: calc(50% - 50vw);
+}
+.page-hero-account .page-hero-image {
+  width: 100vw;
+  max-width: none;
+}
+.page-hero-account .page-hero-image img {
+  display: block;
+  width: 100vw !important;
+  max-width: none !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+/* Portrait product art is kept complete in its editorial panel instead of
+   cropping the person or the device. The navy canvas makes the composition
+   intentional on both desktop and mobile. */
+.feature-media.is-portrait {
+  display: grid;
+  place-items: center;
+  background: var(--navy);
+}
+.feature-media.is-portrait img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+@media (max-width: 860px) {
+  .page-hero-account {
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+  }
+  .page-hero-account .page-hero-image,
+  .page-hero-account .page-hero-image img {
+    width: 100vw !important;
+  }
+}
