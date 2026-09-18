@@ -183,7 +183,6 @@ function Header() {
     <header className="site-header">
       <Link className="brand" to="/" aria-label="CredMaisPay, início" translate="no">
         <img className="brand-wordmark" src="/brand/credmaispay-wordmark.png" alt="CredMaisPay" width="620" height="166" />
-        <span>CRED<span>MAIS</span><b>PAY</b></span>
       </Link>
       <nav className={open ? "main-nav is-open" : "main-nav"} aria-label="Navegação principal">
         <NavLink to="/conta">Conta</NavLink>
